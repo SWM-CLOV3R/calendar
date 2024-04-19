@@ -2,9 +2,88 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+        header {
+            background-color: greenyellow;
+            display: flex;
+            justify-content: center;
+        }
+        main{
+            padding: 3px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .calendar-info{
+            padding-left: 5px;
+        }
+        .event-list {
+            display: flex;
+            background-color: #f0f0f0;
+            width: 82vw;
+            max-height: 90vh;
+            overflow-y: scroll;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .event-box {
+            margin: 5px;
+            width: 40vw;
+            border: 2px solid greenyellow;
+            background-color: #ffffff;
+        }
+        .event-box h3 {
+            padding-left: 10px;
+            border-bottom: 2px solid black;
+        }
+        .event-box-inner {
+            padding-left: 10px;
+        }
+        .event-time {
+            display: flex;
+            flex-direction: row;
+        }
+        .event-time p {
+            padding-left: 5px;
+        }
+    </style>
 </head>
 <body>
-    <p th:text="'Hello ' + ${data}">Hello empty</p>
+    <p th:text="'Hello ' + ${data}">For Test</p>
+    <header>
+        <h3>Your Google Calendar Events</h3>
+    </header>
+    <main>
+        <div class="calendar-info">
+            <h3>Calendar Name</h3>
+        </div>
+        <div class="event-list">
+            <div class="event-box">
+                <h3 class="event-name"> summary </h3>
+                <div class="event-box-inner">
+                    <p>creator.displayName</p>
+                    <p>description</p>
+                    <div class="event-time">
+                        <p>start.datetime</p>
+                        <p>end.datetime</p>
+                    </div>
+                </div>
+            </div>
+            <div class="event-box">
+                <h3 class="event-name"> summary </h3>
+            </div>
+            <div class="event-box">
+                <h3 class="event-name"> summary </h3>
+            </div>
+            <div class="event-box">
+                <h3 class="event-name"> summary </h3>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
