@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +9,10 @@
             background-color: #ffffff;
         }
         header {
-            background-color: greenyellow;
+            background-color: black;
             display: flex;
             justify-content: center;
+            color: #ffffff;
         }
         main{
             padding: 3px;
@@ -26,7 +27,7 @@
             display: flex;
             background-color: #f0f0f0;
             width: 82vw;
-            max-height: 90vh;
+            max-height: 75vh;
             overflow-y: scroll;
             margin-top: 10px;
             flex-wrap: wrap;
@@ -34,7 +35,7 @@
         .event-box {
             margin: 5px;
             width: 40vw;
-            border: 2px solid greenyellow;
+            border: 2px solid black;
             background-color: #ffffff;
         }
         .event-box h3 {
@@ -44,46 +45,84 @@
         .event-box-inner {
             padding-left: 10px;
         }
+        .event-create-info {
+            display: flex;
+            /* color: gray; */
+            justify-content: space-around;
+        }
+        .event-create-info p {
+            margin-right: 10px;
+        }
         .event-time {
             display: flex;
-            flex-direction: row;
+            justify-content: center;
         }
         .event-time p {
             padding-left: 5px;
         }
+        .event-additional-info {
+            display: flex;
+            justify-content: space-around;
+        }
     </style>
 </head>
 <body>
-    <p th:text="'Hello ' + ${data}">For Test</p>
-    <header>
-        <h3>Your Google Calendar Events</h3>
-    </header>
-    <main>
-        <div class="calendar-info">
-            <h3>Calendar Name</h3>
-        </div>
-        <div class="event-list">
-            <div class="event-box">
-                <h3 class="event-name"> summary </h3>
-                <div class="event-box-inner">
-                    <p>creator.displayName</p>
-                    <p>description</p>
+<header>
+    <h3>Your Google Calendar Events</h3>
+</header>
+<main>
+    <div class="calendar-info">
+        <h2>Calendar.summary</h2>
+    </div>
+    <div class="event-list" id="">
+        <div class="event-box" th:each="event : ${events}">
+            <h3 class="event-name" th:text="${event.summary}"> summary </h3>
+            <div class="event-box-inner">
+                <div class="event-basic-info">
+                    <div class="event-create-info">
+                        <p th:text="${event.creator.displayName}">creator.displayName</p>
+                        <p th:text="${event.created}">created</p>
+                        <p th:text="${event.updated}">updated</p>
+                    </div>
+
                     <div class="event-time">
-                        <p>start.datetime</p>
-                        <p>end.datetime</p>
+                        <p th:text="${event.start}+'~'+${event.end}">start ~ end</p>
                     </div>
                 </div>
-            </div>
-            <div class="event-box">
-                <h3 class="event-name"> summary </h3>
-            </div>
-            <div class="event-box">
-                <h3 class="event-name"> summary </h3>
-            </div>
-            <div class="event-box">
-                <h3 class="event-name"> summary </h3>
+                <div class="event-additional-info">
+                    <p th:text="${event.eventType}">eventType</p>
+                    <p th:text="${event.visibility}">visibility</p>
+                </div>
+                <div class="description-wrapper">
+                    <p th:text="${event.description}">description</p>
+                </div>
             </div>
         </div>
-    </main>
+        <!--default event box-->
+        <div class="event-box">
+            <h3 class="event-name"> summary </h3>
+            <div class="event-box-inner">
+                <div class="event-basic-info">
+                    <div class="event-create-info">
+                        <p>creator.displayName</p>
+                        <p>created</p>
+                        <p>updated</p>
+                    </div>
+
+                    <div class="event-time">
+                        <p>start ~ end</p>
+                    </div>
+                </div>
+                <div class="event-additional-info">
+                    <p>eventType</p>
+                    <p>visibility</p>
+                </div>
+                <div class="description-wrapper">
+                    <p>description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>
