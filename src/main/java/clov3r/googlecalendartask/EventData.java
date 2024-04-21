@@ -23,8 +23,8 @@ public class EventData {
         this.creator = creator;
         this.created = (created != null) ? formatDateTime(created, "yyyy년 MM월 dd일") : "-";
         this.updated = (updated != null) ? formatDateTime(updated, "yyyy년 MM월 dd일") : "-";
-        this.start = (((start.getDate()) != null) ? formatDate(start.getDate(), "yyyy년 MM월 dd일") : "-") + " " + ((start.getDateTime() != null) ? formatDateTime(start.getDateTime(), "HH:mm") : "00:00");
-        this.end = (((end.getDate()) != null) ? formatDate(end.getDate(), "yyyy년 MM월 dd일") : "-") + " " + ((end.getDateTime() != null) ? formatDateTime(end.getDateTime(), "HH:mm") : "00:00");
+        this.start = (((start.getDate()) != null) ? formatDate(start.getDate(), "yyyy년 MM월 dd일") : formatDateTime(start.getDateTime(), "yyyy년 MM월 dd일")) + " " + ((start.getDateTime() != null) ? formatDateTime(start.getDateTime(), "HH:mm") : "00:00");
+        this.end = (((end.getDate()) != null) ? formatDate(end.getDate(), "yyyy년 MM월 dd일") : formatDateTime(end.getDateTime(), "yyyy년 MM월 dd일")) + " " + ((end.getDateTime() != null) ? formatDateTime(end.getDateTime(), "HH:mm") : "00:00");
         this.description = (description != null) ? description : "no description";
     }
 
