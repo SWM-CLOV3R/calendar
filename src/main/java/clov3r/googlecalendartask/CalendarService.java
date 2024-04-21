@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,11 +32,13 @@ public class CalendarService {
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_READONLY);  // 구글 캘린더 API 권한
     private static final String TOKENS_DIRECTORY_PATH = "tokens";               // 토큰 저장 경로
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";    // 인증 정보 파일 경로
-    @Value("${calendar.id}") private String CALENDAR_ID;
+    @Value("${calendar.id}")
+    private String CALENDAR_ID;
 
 
     /**
      * 구글 캘린더 API 인증 정보를 가져오는 함수
+     *
      * @return Credential
      * @throws IOException 파일이 없을 때 예외 발생
      */
@@ -65,11 +68,12 @@ public class CalendarService {
 
     /**
      * 구글 캘린더 이벤트를 가져오는 함수
-     * @return List<Event>
-     * @throws IOException 파일이 없을 때 예외 발생
+     *
+     * @return List<EventData>
+     * @throws IOException              파일이 없을 때 예외 발생
      * @throws GeneralSecurityException 구글 API 예외 발생
      */
-    public List<Event> getEvents() throws IOException, GeneralSecurityException {
+    public List<EventData> getEvents() throws IOException, GeneralSecurityException {
         // HTTP 통신 객체 생성
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         // 인증 정보 흭득
@@ -79,14 +83,27 @@ public class CalendarService {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
         // 이벤트 리스트 흭득
+        List<EventData> eventDataList = new ArrayList<>();
         DateTime now = new DateTime(System.currentTimeMillis());
         Events events = service.events().list(CALENDAR_ID)
                 .setTimeMin(now)
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
                 .execute();
-        return events.getItems();
+        for (Event event : events.getItems()) {
+            EventData eventData = new EventData(
+                    event.getSummary(),
+                    event.getCreator(),
+                    event.getCreated(),
+                    event.getUpdated(),
+                    event.getStart(),
+                    event.getEnd(),
+                    event.getDescription(),
+                    event.getEventType(),
+                    event.getVisibility()
+            );
+            eventDataList.add(eventData);
+        }
+        return eventDataList;
     }
-
-
 }
