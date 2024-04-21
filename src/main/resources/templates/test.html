@@ -38,31 +38,41 @@
             border: 2px solid black;
             background-color: #ffffff;
         }
+        .event-header {
+            border-bottom: 2px solid black;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+        }
         .event-box h3 {
             padding-left: 10px;
-            border-bottom: 2px solid black;
+            margin: 0;
         }
         .event-box-inner {
             padding-left: 10px;
         }
         .event-create-info {
             display: flex;
-            /* color: gray; */
-            justify-content: space-around;
+            color: grey;
         }
         .event-create-info p {
-            margin-right: 10px;
+            margin: 0 0 0 5px;
         }
         .event-time {
             display: flex;
             justify-content: center;
         }
-        .event-time p {
-            padding-left: 5px;
-        }
-        .event-additional-info {
+        .description-wrapper {
             display: flex;
-            justify-content: space-around;
+            align-items: center;
+        }
+        .description-wrapper h4 {
+            margin: 0;
+        }
+        .description-wrapper p{
+            margin: 0 0 0 5px;
+            font-weight: lighter;
+            font-size: small;
         }
     </style>
 </head>
@@ -74,51 +84,24 @@
     <div class="calendar-info">
         <h2>Calendar.summary</h2>
     </div>
-    <div class="event-list" id="">
+    <div class="event-list">
         <div class="event-box" th:each="event : ${events}">
-            <h3 class="event-name" th:text="${event.summary}"> summary </h3>
+            <div class="event-header">
+                <h3 class="event-name" th:text="${event.summary}"> summary </h3>
+                <div class="event-create-info">
+                    <p th:text="${event.creator.displayName}">creator.displayName</p>
+                    <p th:text="'created at '+${event.created}">created</p>
+                    <p th:text="'updated at '+${event.updated}">updated</p>
+                </div>
+            </div>
             <div class="event-box-inner">
                 <div class="event-basic-info">
-                    <div class="event-create-info">
-                        <p th:text="${event.creator.displayName}">creator.displayName</p>
-                        <p th:text="${event.created}">created</p>
-                        <p th:text="${event.updated}">updated</p>
-                    </div>
-
                     <div class="event-time">
-                        <p th:text="${event.start}+'~'+${event.end}">start ~ end</p>
+                        <h4 th:text="${event.start}+' ~ '+${event.end}">start ~ end</h4>
                     </div>
-                </div>
-                <div class="event-additional-info">
-                    <p th:text="${event.eventType}">eventType</p>
-                    <p th:text="${event.visibility}">visibility</p>
                 </div>
                 <div class="description-wrapper">
                     <p th:text="${event.description}">description</p>
-                </div>
-            </div>
-        </div>
-        <!--default event box-->
-        <div class="event-box">
-            <h3 class="event-name"> summary </h3>
-            <div class="event-box-inner">
-                <div class="event-basic-info">
-                    <div class="event-create-info">
-                        <p>creator.displayName</p>
-                        <p>created</p>
-                        <p>updated</p>
-                    </div>
-
-                    <div class="event-time">
-                        <p>start ~ end</p>
-                    </div>
-                </div>
-                <div class="event-additional-info">
-                    <p>eventType</p>
-                    <p>visibility</p>
-                </div>
-                <div class="description-wrapper">
-                    <p>description</p>
                 </div>
             </div>
         </div>

@@ -98,9 +98,7 @@ public class CalendarService {
                     event.getUpdated(),
                     event.getStart(),
                     event.getEnd(),
-                    event.getDescription(),
-                    event.getEventType(),
-                    event.getVisibility()
+                    event.getDescription()
             );
             eventDataList.add(eventData);
         }
