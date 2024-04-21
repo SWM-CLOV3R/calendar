@@ -34,7 +34,7 @@ public class CalendarController {
      */
     @GetMapping("/events")
     public String getEvents(Model model) throws IOException, GeneralSecurityException {
-        List<Event> events = calendarService.getEvents();
+        List<EventData> events = calendarService.getEvents();
         model.addAttribute("events", events);
         return "test";
     }
@@ -43,8 +43,8 @@ public class CalendarController {
      * 구글 캘린더 API 이벤트를 가져오는 함수 - postman 테스트용
      */
     @GetMapping("/events/postman")
-    public ResponseEntity<List<Event>> getEvents() throws IOException, GeneralSecurityException {
-        List<Event> events = calendarService.getEvents();
+    public ResponseEntity<List<EventData>> getEvents() throws IOException, GeneralSecurityException {
+        List<EventData> events = calendarService.getEvents();
         return ResponseEntity.ok(events);
     }
 
