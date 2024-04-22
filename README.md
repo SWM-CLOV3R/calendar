@@ -1,3 +1,4 @@
-# calendar
+# Google calendar API 
 
-localhost:8080
+### 접속하기
+localhost:8080/events
